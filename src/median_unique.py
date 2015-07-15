@@ -22,9 +22,15 @@ with open(output_file,'w') as feature_two:
             else:
                 is_odd = 0
 
-            tweet_by_word = tweet.split(' ')
-            tweet_length = len(tweet_by_word)
-            bisect.insort_left(tweet_lengths,tweet_length)
+            tweet_stripped = tweet.strip() # remove '\n'
+            tweet_by_word = tweet_stripped.split(' ')
+
+            unique_words = []
+            for word in tweet_by_word:
+                if word not in unique_words:
+                    unique_words.append(word)
+            unique_word_length = len(unique_words)
+            bisect.insort_left(tweet_lengths,unique_word_length)
 
             if is_odd == 1:
                 moving_median = tweet_lengths[median_index]
